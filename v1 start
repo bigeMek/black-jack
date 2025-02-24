@@ -21,31 +21,62 @@ deck_3 = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
 deck_4 = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
 
 choices = deck_1 + deck_2 + deck_3 + deck_4
+
+player_one_game = []
 player_one_count = 0
-dealer = 0
+dealer_game = []
+dealer_count = 0
 
 def question():
     ask = input("Do you wanna play a Black Jack? Type 'Y' for a game or 'N' for leave\n").lower()
     if ask == 'y':
-        print("Nice. Let's play a game.\n")
-        return player_one()
+        print("Nice. Let's play a game.")
+        player_one()
     elif ask == 'n':
         print('Nevermind, see you next time.')
-        exit
+        exit()
     else:
         print("Wrong input.")
         question()
 
 def player_one():
-    global choices, player_one_count
+    global choices, player_one_game, player_one_count
+   
     guess = random.choice(choices)
+
     if guess == 'J' or guess == 'Q' or guess == 'K':
         guess = 10
+    elif guess == 'A' and player_one_count + 11 <= 21:
+        guess = 11
+    elif guess == 'A' and player_one_count + 11 < 22:
+        guess = 1
+
+    player_one_game.append(guess)  
     player_one_count += guess
-    print(guess)
+    choices.remove(guess)
+    print(f'your hand is {player_one_game}, and you have total {player_one_count} points' )
+    dealer()
 
+def dealer():
+    global choices, dealer_game, dealer_count
 
+    guess = random.choice(choices)
 
-#def black_jack():
+    if guess == 'J' or guess == 'Q' or guess == 'K':
+        guess = 10
+    if guess == 'A' and dealer_count + 11 < 22:
+        guess = 1
+    elif guess == 'A' and dealer_count + 11 >= 21:
+        guess = 11
+
+    dealer_game += guess
+    choices.remove(guess)
+    print(f'Dealers card is {player_one_game}, and dealer has {player_one_count} points' )
+    player_one()
+
+#def who_won():
+
+def black_jack():
+    
 
 question()
