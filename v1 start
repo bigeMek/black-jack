@@ -1,0 +1,51 @@
+#jen prvni karta dealera
+#dealer pokud ma pod 17 tak hituje, jakmile ma 17+ tak nehituje
+
+import random
+
+logo = r"""
+.------.            _     _            _    _            _    
+|A_  _ |.          | |   | |          | |  (_)          | |   
+|( \/ ).-----.     | |__ | | __ _  ___| | ___  __ _  ___| | __
+| \  /|K /\  |     | '_ \| |/ _` |/ __| |/ / |/ _` |/ __| |/ /
+|  \/ | /  \ |     | |_) | | (_| | (__|   <| | (_| | (__|   < 
+`-----| \  / |     |_.__/|_|\__,_|\___|_|\_\ |\__,_|\___|_|\_\\
+      |  \/ K|                            _/ |                
+      `------'                           |__/           
+"""
+
+
+deck_1 = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
+deck_2 = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
+deck_3 = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
+deck_4 = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
+
+choices = deck_1 + deck_2 + deck_3 + deck_4
+player_one_count = 0
+dealer = 0
+
+def question():
+    ask = input("Do you wanna play a Black Jack? Type 'Y' for a game or 'N' for leave\n").lower()
+    if ask == 'y':
+        print("Nice. Let's play a game.\n")
+        return player_one()
+    elif ask == 'n':
+        print('Nevermind, see you next time.')
+        exit
+    else:
+        print("Wrong input.")
+        question()
+
+def player_one():
+    global choices, player_one_count
+    guess = random.choice(choices)
+    if guess == 'J' or guess == 'Q' or guess == 'K':
+        guess = 10
+    player_one_count += guess
+    print(guess)
+
+
+
+#def black_jack():
+
+question()
