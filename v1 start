@@ -1,31 +1,19 @@
-#jen prvni karta dealera
-#dealer pokud ma pod 17 tak hituje, jakmile ma 17+ tak nehituje
-
 import random
-
-logo = r"""
-.------.            _     _            _    _            _    
-|A_  _ |.          | |   | |          | |  (_)          | |   
-|( \/ ).-----.     | |__ | | __ _  ___| | ___  __ _  ___| | __
-| \  /|K /\  |     | '_ \| |/ _` |/ __| |/ / |/ _` |/ __| |/ /
-|  \/ | /  \ |     | |_) | | (_| | (__|   <| | (_| | (__|   < 
-`-----| \  / |     |_.__/|_|\__,_|\___|_|\_\ |\__,_|\___|_|\_\\
-      |  \/ K|                            _/ |                
-      `------'                           |__/           
-"""
-
-
-deck_1 = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
-deck_2 = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
-deck_3 = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
-deck_4 = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
-
-choices = deck_1 + deck_2 + deck_3 + deck_4
 
 player_one_game = []
 player_one_count = 0
 dealer_game = []
 dealer_count = 0
+
+def cards():
+    deck_1 = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
+    deck_2 = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
+    deck_3 = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
+    deck_4 = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
+    all_decks = deck_1 + deck_2 + deck_3 + deck_4
+    card = random.choice(all_decks)
+    all_decks.remove(card)
+    return card
 
 def question():
     ask = input("Do you wanna play a Black Jack? Type 'Y' for a game or 'N' for leave\n").lower()
@@ -40,43 +28,17 @@ def question():
         question()
 
 def player_one():
-    global choices, player_one_game, player_one_count
-   
-    guess = random.choice(choices)
-
-    if guess == 'J' or guess == 'Q' or guess == 'K':
-        guess = 10
-    elif guess == 'A' and player_one_count + 11 <= 21:
-        guess = 11
-    elif guess == 'A' and player_one_count + 11 < 22:
-        guess = 1
-
-    player_one_game.append(guess)  
-    player_one_count += guess
-    choices.remove(guess)
-    print(f'your hand is {player_one_game}, and you have total {player_one_count} points' )
-    dealer()
+    global player_one_count, player_one_game
+    round = cards()
+    print(f'Your card is {player_one_game} and you have total {player_one_count} points')
+    player_one_game.append(round)
+    player_one_count += round
 
 def dealer():
-    global choices, dealer_game, dealer_count
-
-    guess = random.choice(choices)
-
-    if guess == 'J' or guess == 'Q' or guess == 'K':
-        guess = 10
-    if guess == 'A' and dealer_count + 11 < 22:
-        guess = 1
-    elif guess == 'A' and dealer_count + 11 >= 21:
-        guess = 11
-
-    dealer_game += guess
-    choices.remove(guess)
-    print(f'Dealers card is {player_one_game}, and dealer has {player_one_count} points' )
-    player_one()
-
-#def who_won():
-
-def black_jack():
-    
+    global dealer_count, dealer_game
+    round = cards()
+    print(f'Dealer card is {dealer_game} and he has total {dealer_count} points')
+    dealer_game.append(round)
+    dealer_count += round
 
 question()
